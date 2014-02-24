@@ -40,7 +40,7 @@ public class Palya {
 	// játékos pontszáma
 	int pontszam = 0;
 	
-	// körök száma
+	// körök száma 
 	int korok = 0;
 	
 	public Palya() {
