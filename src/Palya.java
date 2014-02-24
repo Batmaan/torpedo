@@ -115,6 +115,7 @@ public class Palya {
 	// még le kell ellenőrizni, hogy van-e ott hajó
 	//
 	public void hajoMozgat(long ID, int merre){
+		lovesvolt = false;
 		boolean valtozott = false;
 		Hajo h = hajok.get(ID);
 		int[] szelsok = h.getSzelsohelyek();
