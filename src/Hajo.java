@@ -10,6 +10,7 @@ public class Hajo {
 	private boolean palyanvan;
 	
 	public boolean[] kilove; // hanyadik elemek vannak kilőve
+	public int beerkezendo;  // hány elemnek kell még beérnie
 	
 	public Hajo(){
 		
@@ -19,6 +20,7 @@ public class Hajo {
 		// TODO Auto-generated constructor stub
 		this.ID = ID;
 		this.hossz = hossz;
+		this.beerkezendo = hossz;
 		hely = new ArrayList<Koordinata>();
 		alak = new Koordinata[2];
 		alak[0] = new Koordinata(0, 0);
@@ -98,6 +100,9 @@ public class Hajo {
 	///////////
 	public void mozgat(int merre){
 		for(Koordinata k : hely){
+			if ((merre == 1 || merre == 2 || merre ==3) && k.x == 0){
+				beerkezendo--;
+			}
 			k.mozgat(merre);
 		}
 	}
