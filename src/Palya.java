@@ -40,7 +40,8 @@ public class Palya {
 	// játékos pontszáma
 	int pontszam = 0;
 	
-	
+	// körök száma
+	int korok = 0;
 	
 	public Palya() {
 		// TODO Auto-generated constructor stub
@@ -121,82 +122,98 @@ public class Palya {
 		int[] szelsok = h.getSzelsohelyek();
 		int xmin = szelsok[0], xmax = szelsok[1], ymin = szelsok[2], ymax = szelsok[3];
 		
-		switch(merre){
-		case 0:
-			break;
-		case 1:
-			if (ymax>=n) break;
-			else {
-				h.mozgat(merre); valtozott = true; ymax++; ymin++; xmax--; xmin--;
-			}
-			break;
-		case 2:
-			h.mozgat(merre); valtozott = true; xmax--; xmin--;
-			break;
-		case 3: 
-			if (ymin<=1) break;
-			else {
-				h.mozgat(merre); valtozott = true; ymax--; ymin--; xmax--; xmin--;
-			}
-			break;
-		case 4:
-			if (ymin<=1) break;
-			else {
-				h.mozgat(merre); valtozott = true; ymax--; ymin--;
-			}
-			break;
-		case 5:
-			if (ymin<=1) break;
-			else {
-				h.mozgat(merre); valtozott = true; ymax--; ymin--; xmax++; xmin++;
-			}
-			break;
-		case 6:
-			h.mozgat(merre); valtozott = true; xmax++; xmin++;
-			break;
-		case 7:
-			if (ymax>=n) break;
-			else {
-				h.mozgat(merre); valtozott = true; ymax++; ymin++; xmax++; xmin++;
-			}
-			break;
-		case 8:
-			if (ymax>=n) break;
-			else {
-				h.mozgat(merre); valtozott = true; ymax++; ymin++; 
-			}
-			break;
-		default: break;	
-		}
-		
-		// ha mozgott a hajó
-		if (valtozott){
-			for(int i=szelsok[0]; i<=szelsok[1]; i++){
-				for(int j=szelsok[2]; j<=szelsok[3]; j++){
-					if (i < n && j < n) {
-						palya[j][i]=0;
-						IDtar[j][i]=0;
-					}
+		if (lephete(merre, h)){
+			switch(merre){
+			case 0:
+				break;
+			case 1:
+				if (ymax>=n-1) break;
+				else {
+					h.mozgat(merre); valtozott = true; ymax++; ymin++; xmax--; xmin--;
 				}
+				break;
+			case 2:
+				h.mozgat(merre); valtozott = true; xmax--; xmin--;
+				break;
+			case 3: 
+				if (ymin<=0) break;
+				else {
+					h.mozgat(merre); valtozott = true; ymax--; ymin--; xmax--; xmin--;
+				}
+				break;
+			case 4:
+				if (ymin<=0) break;
+				else {
+					h.mozgat(merre); valtozott = true; ymax--; ymin--;
+				}
+				break;
+			case 5:
+				if (ymin<=0) break;
+				else {
+					h.mozgat(merre); valtozott = true; ymax--; ymin--; xmax++; xmin++;
+				}
+				break;
+			case 6:
+				h.mozgat(merre); valtozott = true; xmax++; xmin++;
+				break;
+			case 7:
+				if (ymax>=n-1) break;
+				else {
+					h.mozgat(merre); valtozott = true; ymax++; ymin++; xmax++; xmin++;
+				}
+				break;
+			case 8:
+				if (ymax>=n) break;
+				else {
+					h.mozgat(merre); valtozott = true; ymax++; ymin++; 
+				}
+				break;
+			default: break;	
 			}
 			
-			// hova kell 1-est, és hova 2-est írni
-			for(int i=0; i<h.getHossz(); i++){
-				Koordinata k = new Koordinata(h.getHely().get(i).x, h.getHely().get(i).y);
-				if (k.x < n && k.y < n){
-					if(h.kilove[i]){
-						palya[k.y][k.x] = 2;
-					} else {
-						palya[k.y][k.x] = 1;
+			// ha mozgott a hajó
+			if (valtozott){
+				for(int i=szelsok[0]; i<=szelsok[1]; i++){
+					for(int j=szelsok[2]; j<=szelsok[3]; j++){
+						if (i >= 0 && i < n && j < n) {
+							palya[j][i]=0;
+							IDtar[j][i]=0;
+						}
 					}
-					IDtar[k.y][k.x] = ID;
 				}
+				
+				// ha épp bevittünk egy hajót
+				if (h.beerkezendo == 0){
+					int ujpont = (int)Math.pow(2, epdarabok.get(ID));
+					pontszam += ujpont;
+					h.beerkezendo--;
+					f.removeHajo(ID);
+					System.out.println("pontszam: " + pontszam);
+					
+				} else { // ha még nem érkezett be
+					
+					// hova kell 1-est, és hova 2-est írni
+					for(int i=0; i<h.getHossz(); i++){
+						Koordinata k = new Koordinata(h.getHely().get(i).x, h.getHely().get(i).y);
+						if (k.x >= 0 && k.x < n && k.y < n){
+							if(h.kilove[i]){
+								palya[k.y][k.x] = 2;
+							} else {
+								palya[k.y][k.x] = 1;
+							}
+							IDtar[k.y][k.x] = ID;
+						}
+					}
+					
+				}
+			
 			}
 		}
 	}
 	
 	// ha lövés történt, akkor megnézi, hogy talált-e
 	public int lottek(Koordinata k){
+		korok++;
 		lovesvolt = true;
 		talalat.setKoordianata(k.x, k.y);
 		// ha találat van
@@ -240,6 +257,20 @@ public class Palya {
 		}
 		return 0; // a pálya 0-s vagy 2-es mezejére lőttünk
 	}
+	
+	// collision detection :D
+	public boolean lephete(int merre, Hajo h){
+		for(int i=0; i<h.getHossz(); i++){
+			Koordinata k = new Koordinata();
+			k.setKoordianata(h.getHely().get(i).x, h.getHely().get(i).y);
+			k.mozgat(merre);
+			if(palya[k.y][k.x] != 0 && IDtar[k.y][k.x] != h.getID()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	
 	// konzolra rajzol
 	public void rajzol(){
