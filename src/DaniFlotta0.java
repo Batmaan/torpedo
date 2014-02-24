@@ -62,70 +62,14 @@ public class DaniFlotta0 extends Flotta {
 			p.addHajo(h);
 		}*/
 		
-		Hajo e1 = new Hajo(1, 5);
-		hajogyart(e1,90,10);
-		Hajo e2 = new Hajo(2, 7);
-		hajogyart(e2,90,25);
-		Hajo e3 = new Hajo(3, 4);
-		hajogyart(e3,90,40);
-		Hajo e4 = new Hajo(4, 6);
-		hajogyart(e4,90,55);
-		Hajo e5 = new Hajo(5, 5);
-		hajogyart(e5,90,70);
-		Hajo e6 = new Hajo(6, 4);
-		hajogyart(e6,90,85);
 		
-		Hajo f1 = new Hajo(11, 5);
-		hajogyart(f1,70,10);
-		Hajo f2 = new Hajo(12, 7);
-		hajogyart(f2,70,25);
-		Hajo f3 = new Hajo(13, 4);
-		hajogyart(f3,70,40);
-		Hajo f4 = new Hajo(14, 6);
-		hajogyart(f4,70,55);
-		Hajo f5 = new Hajo(15, 5);
-		hajogyart(f5,70,70);
-		Hajo f6 = new Hajo(16, 4);
-		hajogyart(f6,70,85);
+	}
+	
+	public void generHajo(int HajoID, int HajoHossz){
+		Random rand = new Random();
+		Hajo pr = new Hajo(HajoID, HajoHossz);
+		hajogyart(pr, rand.nextInt(p.n), 100);
 		
-		Hajo g1 = new Hajo(21, 5);
-		hajogyart(g1,50,10);
-		Hajo g2 = new Hajo(22, 7);
-		hajogyart(g2,50,25);
-		Hajo g3 = new Hajo(23, 4);
-		hajogyart(g3,50,40);
-		Hajo g4 = new Hajo(24, 6);
-		hajogyart(g4,50,55);
-		Hajo g5 = new Hajo(25, 5);
-		hajogyart(g5,50,70);
-		Hajo g6 = new Hajo(26, 4);
-		hajogyart(g6,50,85);
-		
-		Hajo h1 = new Hajo(31, 5);
-		hajogyart(h1,30,10);
-		Hajo h2 = new Hajo(32, 7);
-		hajogyart(h2,30,25);
-		Hajo h3 = new Hajo(33, 4);
-		hajogyart(h3,30,40);
-		Hajo h4 = new Hajo(34, 6);
-		hajogyart(h4,30,55);
-		Hajo h5 = new Hajo(35, 5);
-		hajogyart(h5,30,70);
-		Hajo h6 = new Hajo(36, 4);
-		hajogyart(h6,30,85);
-		
-		Hajo j1 = new Hajo(41, 5);
-		hajogyart(j1,10,10);
-		Hajo j2 = new Hajo(42, 7);
-		hajogyart(j2,10,25);
-		Hajo j3 = new Hajo(43, 4);
-		hajogyart(j3,10,40);
-		Hajo j4 = new Hajo(44, 6);
-		hajogyart(j4,10,55);
-		Hajo j5 = new Hajo(45, 5);
-		hajogyart(j5,10,70);
-		Hajo j6 = new Hajo(46, 4);
-		hajogyart(j6,10,85);
 	}
 	
 	public void hajogyart(Hajo ph, int xkezd, int ykezd){

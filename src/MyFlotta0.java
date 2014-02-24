@@ -40,7 +40,11 @@ public class MyFlotta0 extends Flotta {
 				p.hajoMozgat(h.getID(), 2);
 		}		
 	}
-
+	
+	public void generHajo(int HajoID, int HajoHossz){
+		;
+	}
+	
 	public void lo() {
 		/*Random rand = new Random(); 
 		int x = rand.nextInt(100);  

@@ -28,20 +28,33 @@ public class Main extends Canvas {
         Flotta f0 = new MyFlotta0(p0);
         p0.setFlotta(f0);
         f0.init();
+        Flotta f1 = new DaniFlotta0(p0);
          
         for(int i=0; i<100; i++){
+        	if((i % 5)==1) {f1.generHajo(i+10, i%7);}
         	f0.flottaMozgat(p0);
         	frame0.repaint();
         	try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	f0.lo();
+        	
         	frame0.repaint();
         	try {
-				Thread.sleep(500);
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	
+        	f1.lo();
+        	
+        	frame0.repaint();
+        	try {
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

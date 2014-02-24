@@ -30,4 +30,6 @@ abstract public class Flotta {
 	public abstract void flottaMozgat(Palya p);
 
 	public abstract void lo();
+	
+	public abstract void generHajo(int HajoID, int HajoHossz);
 }
