@@ -29,7 +29,6 @@ public class Main extends Canvas {
         p0.setFlotta(f0);
         f0.init();
          
-         
         for(int i=0; i<100; i++){
         	f0.flottaMozgat(p0);
         	frame0.repaint();
