@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -40,7 +41,7 @@ public class Palya {
 	// játékos pontszáma
 	int pontszam = 0;
 	
-	// körök száma 
+	// körök száma
 	int korok = 0;
 	
 	public Palya() {
@@ -187,7 +188,7 @@ public class Palya {
 					int ujpont = (int)Math.pow(2, epdarabok.get(ID));
 					pontszam += ujpont;
 					h.beerkezendo--;
-					f.removeHajo(ID);
+					epdarabok.put(ID, -1);
 					System.out.println("pontszam: " + pontszam);
 					
 				} else { // ha még nem érkezett be
@@ -213,6 +214,16 @@ public class Palya {
 	
 	// ha lövés történt, akkor megnézi, hogy talált-e
 	public int lottek(Koordinata k){
+		
+		// eltávolítjuk a flottából és az épdarabokból az előző körben célbaért hajókat 
+	    Iterator it = epdarabok.entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry pairs = (Map.Entry)it.next();
+	        if (pairs.getValue().equals(-1)){
+	        	f.removeHajo((Long)pairs.getKey());
+		        it.remove(); // avoids a ConcurrentModificationException	        	
+	        }
+	    }		
 		korok++;
 		lovesvolt = true;
 		talalat.setKoordianata(k.x, k.y);
@@ -264,8 +275,10 @@ public class Palya {
 			Koordinata k = new Koordinata();
 			k.setKoordianata(h.getHely().get(i).x, h.getHely().get(i).y);
 			k.mozgat(merre);
-			if(palya[k.y][k.x] != 0 && IDtar[k.y][k.x] != h.getID()){
-				return false;
+			if (k.x >=0 && k.y >= 0){
+				if(palya[k.y][k.x] != 0 && IDtar[k.y][k.x] != h.getID()){
+					return false;
+				}				
 			}
 		}
 		return true;
